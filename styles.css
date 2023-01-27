@@ -13,19 +13,20 @@
   height: 95vh;
   flex: 1;
   display: grid;
+  border: 3px black solid;
+  margin: 10px;
 }
 
 .user-input{
   padding-bottom: 10px;
 }
 
-.grid-box{
-  border: black 1px solid;
-  height: auto;
+.notifyUserInputSize{
+  margin-bottom: 10px;
 }
 
-.colored{
-  background-color: purple;
+.grid-box{
+  height: auto;
 }
 
 .grid-box:hover{

@@ -9,13 +9,53 @@ function createBoard(size){
   for(let i = 0; i < size*size; i++){
     let div = document.createElement('div');
     div.classList.add('grid-box');
-    div.addEventListener("mouseenter", colorGrid);
+    div.addEventListener("mouseenter", selectPaintColor);
     containerGrid.appendChild(div);
   }  
 }  
 
-function colorGrid(){
-  this.classList.add('colored')
+let currPaintingMode = "black";
+let currColor = "black";
+let currOpacity = "1"
+
+function selectPaintColor(){
+  let opacityOfSquare = "";
+  let rgb = ""
+
+  if(this.tagName == "DIV"){
+    opacityOfSquare = window.getComputedStyle(this).getPropertyValue('opacity');
+    rgb = window.getComputedStyle(this).getPropertyValue('background-color');
+    if(rgb === "rgba(0, 0, 0, 0)" && currPaintingMode === "shading"){
+      opacityOfSquare = 0;
+    }
+  }
+  
+  if(currPaintingMode === "rainbow"){
+    // TODO
+    currColor = "purple";
+    currOpacity = "1";
+  }
+  else if(currPaintingMode === "shading"){
+    currColor = "black";
+    if(rgb !== "rgb(0, 0, 0)") opacityOfSquare = 0;
+    if(opacityOfSquare < 1) {
+      opacityOfSquare = Number(opacityOfSquare);
+      opacityOfSquare += 0.1;
+      currOpacity = opacityOfSquare.toString();
+    }
+  }
+  else if(currPaintingMode === "black"){
+    currColor = "black";
+    currOpacity = "1";
+  }
+
+  this.style.backgroundColor = currColor;
+  this.style.opacity = currOpacity;
+  currOpacity = "1";
+}
+
+function changePaintMode(mode){
+  currPaintingMode = mode;
 }
 
 const gridSizeBtn = document.querySelector('#gridSizeSubmit');
