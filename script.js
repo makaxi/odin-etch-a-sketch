@@ -25,19 +25,20 @@ function selectPaintColor(){
   if(this.tagName == "DIV"){
     opacityOfSquare = window.getComputedStyle(this).getPropertyValue('opacity');
     rgb = window.getComputedStyle(this).getPropertyValue('background-color');
-    if(rgb === "rgba(0, 0, 0, 0)" && currPaintingMode === "shading"){
-      opacityOfSquare = 0;
-    }
   }
   
   if(currPaintingMode === "rainbow"){
     let randomColor = Math.floor(Math.random()*16777215).toString(16);
     currColor = "#" + randomColor;
-    currOpacity = "1";
+    let randomOpacity = Math.random();
+    currOpacity = randomOpacity.toFixed(1);
   }
   else if(currPaintingMode === "shading"){
-    currColor = "black";
-    if(rgb !== "rgb(0, 0, 0)") opacityOfSquare = 0;
+    currColor = rgb;
+    if(rgb === "rgba(0, 0, 0, 0)"){
+      currColor = "black";
+      opacityOfSquare = 0;
+    }
     if(opacityOfSquare < 1) {
       opacityOfSquare = Number(opacityOfSquare);
       opacityOfSquare += 0.1;
